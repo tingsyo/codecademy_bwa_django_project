@@ -3,9 +3,9 @@ from django.db import models
 class Ingredient(models.Model):
     ''' An inventory of different Ingredients, their available quantity, and their prices per unit. '''
     name = models.CharField(max_length=200, unique=True)
-    quantity = models.IntegerField(default=0)
-    unit = models.CharField(max_length=50, null=True)
-    price_per_unit = models.FloatField(default=0.00)
+    quantity = models.FloatField(default=0.0)
+    unit = models.CharField(max_length=30, null=True)
+    price_per_unit = models.FloatField(default=0.0)
     # get the absolute url
     def get_absolute_url(self):
         return "/ingredients"
