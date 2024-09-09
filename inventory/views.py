@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import logout
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Ingredient, MenuItem, Purchase
+from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
 from django.urls import reverse_lazy
 
 
@@ -69,3 +69,7 @@ class PurchaseDeleteView(LoginRequiredMixin, DeleteView):
 
 class ReportView(LoginRequiredMixin, TemplateView):
     template_name = "report.html"
+
+class RecipeRequirementCreateView(LoginRequiredMixin, CreateView):
+    model = RecipeRequirement
+    template_name = "inventory/reciperequirement_create.html"
