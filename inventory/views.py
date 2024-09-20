@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from django.views.generic import TemplateView, ListView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Ingredient, MenuItem, Purchase, RecipeRequirement
+from .forms import IngredientForm, MenuItemForm, PurchaseForm, RecipeRequirementForm
 from django.urls import reverse_lazy
 
 
@@ -26,41 +27,36 @@ class IngredientListView(LoginRequiredMixin, ListView):
     template_name = "inventory/ingredients_list.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["ingredients"] = Ingredient.objects.all()
         context["nbar"] = "ingrdient"
         return context
     
 class IngredientCreateView(LoginRequiredMixin, CreateView):
     model = Ingredient
     template_name = "inventory/ingredient_create.html"
+    form_class = IngredientForm
+    success_url = reverse_lazy("ingrdients")
 
 class IngredientUpdateView(LoginRequiredMixin, UpdateView):
     model = Ingredient
     template_name = "inventory/ingredient_update.html"
-
-class IngredientDeleteView(LoginRequiredMixin, DeleteView):
-    model = Ingredient
-    template_name = "inventory/ingredient_delete.html"
-    success_url = reverse_lazy("ingredients")
+    form_class = IngredientForm
+    success_url = reverse_lazy("ingrdients")
 
 class MenuItemListView(LoginRequiredMixin, ListView):
     model = MenuItem
     template_name = "inventory/menuitems_list.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context["menu_items"] = MenuItem.objects.all()
         context["nbar"] = "menuitem"
         return context
     
 class MenuItemCreateView(LoginRequiredMixin, CreateView):
     model = MenuItem
     template_name = "inventory/menuitem_create.html"
-
-class MenuItemUpdateView(LoginRequiredMixin, UpdateView):
-    model = MenuItem
-    template_name = "inventory/menuitem_update.html"
-
-class MenuItemDeleteView(LoginRequiredMixin, DeleteView):
-    model = MenuItem
-    success_url = reverse_lazy("menu")
+    form_class = MenuItemForm
+    success_url = reverse_lazy("menuitem")
 
 class PurchaseListView(LoginRequiredMixin, ListView):
     model = Purchase

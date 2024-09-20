@@ -1,7 +1,24 @@
 {% extends 'base.html' %} 
 {% load static %} 
 {% block content %}
-
-
-
+<div id="menuitems" class="container"></div>
+    <br><br>
+    <h3>MenuItems</h3>
+    <a class="btn btn-primary" href="/menuitem/create">+ Add New Menu Item</a>
+    <br>
+    <table id="menuitem-table" class="table">
+        <thead><tr>
+            <th>Title</th>
+            <th>Price</th>
+        </tr></thead>
+        <tbody>
+            {% for item in menu_items %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td class="price">${{ item.price|stringformat:".2f" }}</td>
+            </tr>
+            {% endfor %}            
+        </tbody>
+    </table>
+</div>
 {% endblock %}
